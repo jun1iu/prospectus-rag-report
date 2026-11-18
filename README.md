@@ -32,10 +32,16 @@ These are the original report's figures. The baseline retrieval score is provisi
 
 - **The first test was too easy.** An initial 22-question set could not distinguish the approaches, so harder questions were added.
 - **Evidence matching can mislead.** Some retrieved passages contained the right fact in different wording. Accepting alternative evidence phrases changed how retrieval misses were counted.
-- **Keyword overlap can be noisy.** Generic terms such as company names and years can displace a more relevant passage. Hybrid retrieval did not improve this particular configuration.
+- **The hybrid conclusion is not settled.** Several logged misses contain valid evidence in different wording. Exact-phrase scoring can penalize a useful result, so the logged hit counts do not establish that hybrid retrieval was worse.
 - **Candidate order matters.** The reranking result suggests that some useful passages were already among the candidates but outside the final six.
 
 These are observations about this implementation and dataset, rather than general conclusions that hybrid search is worse or reranking always helps.
+
+## Audit findings
+
+One three-company revenue-growth comparison was marked correct even though the answer explicitly lacked evidence for one company. Naming the eventual winner is not enough to demonstrate a supported comparison. The logged 35/36 therefore should not be read as 35 fully verified, evidence-complete answers.
+
+Several retrieval misses contain the right fact in alternative prose or tables. Earlier runs also lack saved candidate IDs, preventing a complete retrospective rescore. Proposed adjusted totals are estimates, not replacement measurements. Freeze the scoring rules and rerun before claiming an exact retrieval improvement.
 
 ## Improvements to test next
 
